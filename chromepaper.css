@@ -1,0 +1,20 @@
+body {
+  background-color: white !important;
+}
+
+#left_column, #bookmark_list {
+  float: none !important;
+  width: 100% !important;
+}
+
+#right_column {
+  display: none;
+}
+
+.tableViewCell {
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fcfcfc));
+}
+
+.tableViewCell.selected {
+  background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f2f2f2));
+}

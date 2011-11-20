@@ -1,0 +1,15 @@
+{
+  "name": "chromepaper",
+  "version": "1.0.0",
+  "description": "some tweaks to instapaper.com",
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "matches": ["http://*.instapaper.com/*"],
+      "css": ["chromepaper.css"],
+      "js": ["jquery.min.js", "jquery.hotkeys.js", "chromepaper.js"]
+    }
+  ]
+}
+
+
