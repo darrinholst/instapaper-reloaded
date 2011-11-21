@@ -7,7 +7,7 @@ body {
   width: 100% !important;
 }
 
-#right_column {
+#right_column, #bookmarkListDeckAd {
   display: none;
 }
 

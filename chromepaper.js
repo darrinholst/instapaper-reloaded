@@ -82,18 +82,6 @@
     $(document).bind('keydown', 'k', previousArticle);
     $(document).bind('keydown', 't', openTextArticle);
     $(document).bind('keydown', 'o', openOriginalArticle);
-
-    $(document).bind('keydown', 's', function() {
-      $('html, body').animate({scrollTop: 100}, 200);
-    });
-
-    $(document).bind('keydown', 'x', function() {
-      $('html, body').animate({scrollTop: -100}, 200);
-    });
-
-    $(document).bind('keydown', 'd', function() {
-      alert($(window).scrollTop());
-    });
   }
 
   makeLinksOpenInNewTab();
