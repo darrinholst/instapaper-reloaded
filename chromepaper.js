@@ -1,32 +1,66 @@
 (function() {
-  var articleContainer = ".tableViewCell";
-      selectedArticle = $(articleContainer).filter(":first");
+  var articleContainer = ".tableViewCell",
+      textViewLink = ".textButton",
+      originalArticleLink = ".tableViewCellTitleLink",
+      selectedArticle = $(articleContainer).filter(":first"),
+      scrollPadding = 30;
 
   function makeLinksOpenInNewTab() {
-    $(".textButton").attr("target", "_blank");
-    $(".tableViewCellTitleLink").attr("target", "_blank");
+    $(textViewLink).attr("target", "_blank");
+    $(originalArticleLink).attr("target", "_blank");
   }
 
   function showSelectedArticle() {
     selectedArticle.addClass("selected");
   }
 
-  function nextOrPreviousArticle(nextOrPrevious) {
+  function scrollBy(pixels) {
+    document.body.scrollTop = document.body.scrollTop + pixels;
+  }
+
+  function scrollToTop() {
+    scrollBy(-1000);
+  }
+
+  function makeSelectedArticleVisible(isGoingDown) {
+    var windowTop = document.body.scrollTop;
+    var windowHeight = $(window).height();
+    var selectedTop = selectedArticle.offset().top;
+    var selectedBottom = selectedTop + selectedArticle.outerHeight();
+
+    if(isGoingDown) {
+      if(selectedBottom > windowTop + windowHeight) {
+        scrollBy(selectedBottom - windowHeight - windowTop + scrollPadding);
+      }
+    }
+    else {
+      if(selectedTop < windowTop) {
+        scrollBy(-(windowTop - selectedTop + scrollPadding));
+      }
+    }
+  }
+
+  function selectArticle(nextOrPrevious) {
     var nextArticle = selectedArticle[nextOrPrevious](articleContainer);
 
     if(nextArticle.length) {
       selectedArticle.removeClass("selected");
       selectedArticle = nextArticle;
       showSelectedArticle();
+      makeSelectedArticleVisible(nextOrPrevious === 'next');
+
+      if(nextOrPrevious === 'prev' && !nextArticle.prev(articleContainer).length) {
+        scrollToTop();
+      }
     }
   }
 
   function nextArticle() {
-    nextOrPreviousArticle("next");
+    selectArticle("next");
   }
 
   function previousArticle() {
-    nextOrPreviousArticle("prev");
+    selectArticle("prev");
   }
 
   function clickLink(link) {
@@ -36,11 +70,11 @@
   }
 
   function openTextArticle() {
-    clickLink(selectedArticle.find(".textButton")[0]);
+    clickLink(selectedArticle.find(textViewLink)[0]);
   }
 
   function openOriginalArticle() {
-    clickLink(selectedArticle.find(".tableViewCellTitleLink")[0]);
+    clickLink(selectedArticle.find(originalArticleLink)[0]);
   }
 
   function bindShortcutKeys() {
@@ -48,6 +82,18 @@
     $(document).bind('keydown', 'k', previousArticle);
     $(document).bind('keydown', 't', openTextArticle);
     $(document).bind('keydown', 'o', openOriginalArticle);
+
+    $(document).bind('keydown', 's', function() {
+      $('html, body').animate({scrollTop: 100}, 200);
+    });
+
+    $(document).bind('keydown', 'x', function() {
+      $('html, body').animate({scrollTop: -100}, 200);
+    });
+
+    $(document).bind('keydown', 'd', function() {
+      alert($(window).scrollTop());
+    });
   }
 
   makeLinksOpenInNewTab();
