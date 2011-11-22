@@ -1,6 +1,7 @@
 (function() {
   var articleContainer = ".tableViewCell",
       textViewLink = ".textButton",
+      archiveLink = ".archiveButton",
       originalArticleLink = ".tableViewCellTitleLink",
       selectedArticle = $(articleContainer).filter(":first"),
       scrollPadding = 30;
@@ -77,11 +78,19 @@
     clickLink(selectedArticle.find(originalArticleLink)[0]);
   }
 
+ function archiveSelectedArticle() {
+    var nextArticle = selectedArticle.next();
+    clickLink(selectedArticle.find(archiveLink)[0]);
+    selectedArticle = nextArticle;
+    showSelectedArticle();
+ }
+
   function bindShortcutKeys() {
     $(document).bind('keydown', 'j', nextArticle);
     $(document).bind('keydown', 'k', previousArticle);
     $(document).bind('keydown', 't', openTextArticle);
     $(document).bind('keydown', 'o', openOriginalArticle);
+    $(document).bind('keydown', 'a', archiveSelectedArticle);
   }
 
   makeLinksOpenInNewTab();
