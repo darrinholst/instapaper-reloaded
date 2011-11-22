@@ -79,10 +79,12 @@
   }
 
  function archiveSelectedArticle() {
-    var nextArticle = selectedArticle.next();
+    var nextArticle = selectedArticle.next().length != 0 ? selectedArticle.next() : selectedArticle.prev();
     clickLink(selectedArticle.find(archiveLink)[0]);
-    selectedArticle = nextArticle;
-    showSelectedArticle();
+    if(nextArticle.length){
+        selectedArticle = nextArticle;
+        showSelectedArticle();
+    }
  }
 
   function bindShortcutKeys() {
