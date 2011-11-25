@@ -1,10 +1,12 @@
 (function() {
-  var articleContainer = ".tableViewCell",
+  var scroller = new Scroller(),
+      articleContainer = ".tableViewCell",
       textViewLink = ".textButton",
       archiveLink = ".archiveButton",
       originalArticleLink = ".tableViewCellTitleLink",
       selectedArticle = $(articleContainer).filter(":first"),
-      scrollPadding = 30;
+      nextArticle = null,
+      previousArticle = null;
 
   function makeLinksOpenInNewTab() {
     $(textViewLink).attr("target", "_blank");
@@ -14,55 +16,38 @@
   function showSelectedArticle() {
     $(articleContainer).removeClass("selected");
     selectedArticle.addClass("selected");
+    nextArticle = selectedArticle.next();
+    previousArticle = selectedArticle.prev();
   }
 
-  function scrollBy(pixels) {
-    document.body.scrollTop = document.body.scrollTop + pixels;
+  function isAtTheTopOfTheList() {
+    return previousArticle.length === 0;
   }
 
-  function scrollToTop() {
-    scrollBy(-1000);
-  }
-
-  function makeSelectedArticleVisible(isGoingDown) {
-    var windowTop = document.body.scrollTop;
-    var windowHeight = $(window).height();
-    var selectedTop = selectedArticle.offset().top;
-    var selectedBottom = selectedTop + selectedArticle.outerHeight();
-
-    if(isGoingDown) {
-      if(selectedBottom > windowTop + windowHeight) {
-        scrollBy(selectedBottom - windowHeight - windowTop + scrollPadding);
-      }
-    }
-    else {
-      if(selectedTop < windowTop) {
-        scrollBy(-(windowTop - selectedTop + scrollPadding));
-      }
-    }
-  }
-
-  function selectArticle(nextOrPrevious) {
-    var nextArticle = selectedArticle[nextOrPrevious](articleContainer);
-
-    if(nextArticle.length) {
-      selectedArticle.removeClass("selected");
-      selectedArticle = nextArticle;
+  function selectArticle(article) {
+    if(article.length) {
+      var goingDown = nextArticle.attr("id") === article.attr("id");
+      selectedArticle = article;
       showSelectedArticle();
-      makeSelectedArticleVisible(nextOrPrevious === 'next');
 
-      if(nextOrPrevious === 'prev' && !nextArticle.prev(articleContainer).length) {
-        scrollToTop();
+      if(isAtTheTopOfTheList()) {
+        scroller.scrollToTop();
+      }
+      else if(goingDown) {
+        scroller.scrollToBottomOf(selectedArticle);
+      }
+      else {
+        scroller.scrollToTopOf(selectedArticle);
       }
     }
   }
 
-  function nextArticle() {
-    selectArticle("next");
+  function selectNextArticle() {
+    selectArticle(selectedArticle.next());
   }
 
-  function previousArticle() {
-    selectArticle("prev");
+  function selectPreviousArticle() {
+    selectArticle(selectedArticle.prev());
   }
 
   function clickLink(link) {
@@ -79,27 +64,35 @@
     clickLink(selectedArticle.find(originalArticleLink)[0]);
   }
 
- function archiveSelectedArticle() {
-    var nextArticle = selectedArticle.next().length != 0 ? selectedArticle.next() : selectedArticle.prev();
+  function archiveSelectedArticle() {
     clickLink(selectedArticle.find(archiveLink)[0]);
-    if(nextArticle.length) {
-        selectedArticle = nextArticle;
-        showSelectedArticle();
+  }
+
+  function articleArchived() {
+    var archivedArticle = $(this).closest(articleContainer);
+    archivedArticle.addClass("archived");
+
+    if(archivedArticle.hasClass("selected")) {
+      selectedArticle = nextArticle.length ? nextArticle : previousArticle;
+      showSelectedArticle();
     }
- }
+  }
 
   function articleClicked() {
-    selectedArticle = $(this);
-    showSelectedArticle();
+    if(!($(this).hasClass("archived"))) {
+      selectedArticle = $(this);
+      showSelectedArticle();
+    }
   }
 
   function bindEvents() {
-    $(document).bind('keydown', 'j', nextArticle);
-    $(document).bind('keydown', 'k', previousArticle);
+    $(document).bind('keydown', 'j', selectNextArticle);
+    $(document).bind('keydown', 'k', selectPreviousArticle);
     $(document).bind('keydown', 't', openTextArticle);
     $(document).bind('keydown', 'o', openOriginalArticle);
     $(document).bind('keydown', 'a', archiveSelectedArticle);
     $(articleContainer).click(articleClicked);
+    $(archiveLink).click(articleArchived);
   }
 
   makeLinksOpenInNewTab();

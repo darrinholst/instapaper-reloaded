@@ -7,7 +7,7 @@
       "all_frames": true,
       "matches": ["http://*.instapaper.com/*"],
       "css": ["chromepaper.css"],
-      "js": ["jquery.min.js", "jquery.hotkeys.js", "chromepaper.js"]
+      "js": ["jquery.min.js", "jquery.hotkeys.js", "scroller.js",  "chromepaper.js"]
     }
   ]
 }
