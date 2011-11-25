@@ -1,15 +1,18 @@
 {
-  "name": "chromepaper",
+  "name": "Instapaper Reloaded",
   "version": "1.0.0",
-  "description": "some tweaks to instapaper.com",
-  "content_scripts": [
-    {
-      "all_frames": true,
-      "matches": ["http://*.instapaper.com/*"],
-      "css": ["chromepaper.css"],
-      "js": ["jquery.min.js", "jquery.hotkeys.js", "scroller.js",  "chromepaper.js"]
-    }
-  ]
+  "description": "Some tweaks to instapaper.com",
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "content_scripts": [{
+    "all_frames": true,
+    "matches": ["http://*.instapaper.com/*"],
+    "css": ["chromepaper.css"],
+    "js": ["jquery.min.js", "jquery.hotkeys.js", "scroller.js",  "chromepaper.js"]
+  }]
 }
 
 
