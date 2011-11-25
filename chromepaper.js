@@ -12,6 +12,7 @@
   }
 
   function showSelectedArticle() {
+    $(articleContainer).removeClass("selected");
     selectedArticle.addClass("selected");
   }
 
@@ -81,21 +82,27 @@
  function archiveSelectedArticle() {
     var nextArticle = selectedArticle.next().length != 0 ? selectedArticle.next() : selectedArticle.prev();
     clickLink(selectedArticle.find(archiveLink)[0]);
-    if(nextArticle.length){
+    if(nextArticle.length) {
         selectedArticle = nextArticle;
         showSelectedArticle();
     }
  }
 
-  function bindShortcutKeys() {
+  function articleClicked() {
+    selectedArticle = $(this);
+    showSelectedArticle();
+  }
+
+  function bindEvents() {
     $(document).bind('keydown', 'j', nextArticle);
     $(document).bind('keydown', 'k', previousArticle);
     $(document).bind('keydown', 't', openTextArticle);
     $(document).bind('keydown', 'o', openOriginalArticle);
     $(document).bind('keydown', 'a', archiveSelectedArticle);
+    $(articleContainer).click(articleClicked);
   }
 
   makeLinksOpenInNewTab();
   showSelectedArticle();
-  bindShortcutKeys();
+  bindEvents();
 })();
