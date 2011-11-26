@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "Some tweaks to instapaper.com",
   "icons": {
-    "16": "icon16.png",
-    "48": "icon48.png",
-    "128": "icon128.png"
+    "16": "img/icon16.png",
+    "48": "img/icon48.png",
+    "128": "img/icon128.png"
   },
   "content_scripts": [{
     "all_frames": true,
     "matches": ["http://*.instapaper.com/*"],
-    "css": ["chromepaper.css"],
-    "js": ["jquery.min.js", "jquery.hotkeys.js", "scroller.js",  "chromepaper.js"]
+    "css": ["css/chromepaper.css"],
+    "js": ["js/jquery.min.js", "js/jquery.hotkeys.js", "js/scroller.js",  "js/chromepaper.js"]
   }]
 }
 
