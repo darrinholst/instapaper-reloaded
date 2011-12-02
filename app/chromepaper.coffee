@@ -59,7 +59,7 @@ do ->
     archivedArticle.addClass("archived")
 
     if archivedArticle.hasClass("selected")
-      selectedArticle = nextArticle.length ? nextArticle : previousArticle
+      selectedArticle = if nextArticle.length then nextArticle else previousArticle
       showSelectedArticle()
 
   articleClicked = () ->
