@@ -10,3 +10,8 @@ end
 
 require 'jasmine'
 load 'jasmine/tasks/jasmine.rake'
+
+desc 'compile coffeescript'
+task :compile => 'barista:compile'
+
+task :default => :compile
