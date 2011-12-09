@@ -49,7 +49,13 @@ do ->
     clickLink(selectedArticle.find(textViewLink)[0])
 
   openOriginalArticle = () ->
-    clickLink(selectedArticle.find(originalArticleLink)[0])
+    clickLink(findOriginalArticleLink())
+
+  findOriginalArticleLink = () ->
+    if selectedArticle.length
+      selectedArticle.find(originalArticleLink)[0]
+    else
+      $('a:contains("View original")')[0]
 
   archiveSelectedArticle = () ->
     clickLink(selectedArticle.find(archiveLink)[0])
