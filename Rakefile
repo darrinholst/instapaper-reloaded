@@ -1,17 +1,15 @@
-require 'barista/rake_task'
+require File.join(File.dirname(__FILE__), '/src/sprockets_config')
 
-Barista::RakeTask.new do |t|
-  t.input_directory = 'app'
-  t.output_directory = 'javascripts'
-  t.task_name = :compile
-  t.rails = false
-  t.bare = true
+# require 'jasmine'
+# load 'jasmine/tasks/jasmine.rake'
+
+desc 'precompile the assets'
+task :precompile do
+  sprockets.precompile
 end
 
-require 'jasmine'
-load 'jasmine/tasks/jasmine.rake'
+task :default => :precompile
 
-desc 'compile coffeescript'
-task :compile => 'barista:compile'
-
-task :default => :compile
+def sprockets
+  @config ||= SprocketsConfig.new(YAML::load(File.open("sprockets.yml")))
+end

@@ -1,5 +1,7 @@
 source :rubygems
 
 gem 'rake'
-gem 'jasmine', '1.1.2'
-gem 'barista'
+gem 'jasmine'
+gem 'sprockets'
+gem 'coffee-script'
+gem 'sass'
