@@ -73,12 +73,22 @@ do ->
       selectedArticle = $(this)
       showSelectedArticle()
 
+  gotoArchive = () ->
+    console.log(window.location)
+    window.location = window.location.origin + "/archive"
+
+  gotoUnread = () ->
+    console.log(window.location)
+    window.location = window.location.origin + "/u"
+
   bindEvents = () ->
     $(document).bind('keydown', 'j', selectNextArticle)
     $(document).bind('keydown', 'k', selectPreviousArticle)
     $(document).bind('keydown', 't', openTextArticle)
     $(document).bind('keydown', 'o', openOriginalArticle)
     $(document).bind('keydown', 'a', archiveSelectedArticle)
+    $(document).bind('keydown', 'shift+a', gotoArchive)
+    $(document).bind('keydown', 'shift+u', gotoUnread)
     $(articleContainer).click(articleClicked)
     $(archiveLink).click(articleArchived)
 
