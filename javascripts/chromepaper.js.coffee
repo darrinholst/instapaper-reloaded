@@ -79,10 +79,10 @@ do ->
     $(document).bind('keydown', 't', openTextArticle)
     $(document).bind('keydown', 'o', openOriginalArticle)
     $(document).bind('keydown', 'a', archiveSelectedArticle)
-
     $(document).bind('keydown', 'shift+a', -> window.location = window.location.origin + "/archive")
     $(document).bind('keydown', 'shift+u', -> window.location = window.location.origin + "/u")
-
+    $("#right_column").bind 'mouseenter', -> $(this).animate('right': 30, 200)
+    $("#right_column").bind 'mouseleave', (event) -> $(this).animate('right': -240, 200) if event.offsetX < 0
     $(articleContainer).click(articleClicked)
     $(archiveLink).click(articleArchived)
 
