@@ -8,6 +8,9 @@ do ->
   nextArticle = null
   previousArticle = null
 
+  onArticlePage = () ->
+    $(articleContainer).length > 0
+
   makeLinksOpenInNewTab = () ->
     $(textViewLink).attr("target", "_blank")
     $(originalArticleLink).attr("target", "_blank")
@@ -34,8 +37,20 @@ do ->
       else
         scroller.scrollToTopOf(selectedArticle)
 
+  downDownDown = () ->
+    if onArticlePage()
+      selectNextArticle()
+    else
+      scroller.scrollBy(20)
+
   selectNextArticle = () ->
     selectArticle(selectedArticle.next())
+
+  upUpUp = () ->
+    if onArticlePage()
+      selectPreviousArticle()
+    else
+      scroller.scrollBy(-20)
 
   selectPreviousArticle = () ->
     selectArticle(selectedArticle.prev())
@@ -74,8 +89,8 @@ do ->
       showSelectedArticle()
 
   bindEvents = () ->
-    $(document).bind('keydown', 'j', selectNextArticle)
-    $(document).bind('keydown', 'k', selectPreviousArticle)
+    $(document).bind('keydown', 'j', downDownDown)
+    $(document).bind('keydown', 'k', upUpUp)
     $(document).bind('keydown', 't', openTextArticle)
     $(document).bind('keydown', 'o', openOriginalArticle)
     $(document).bind('keydown', 'a', archiveSelectedArticle)

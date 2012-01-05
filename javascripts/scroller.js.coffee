@@ -21,7 +21,5 @@ class Scroller
     if elementBottom > windowTop + windowHeight
       @scrollBy(elementBottom - windowHeight - windowTop + @scrollPadding)
 
-  #private
-
   scrollBy:  (pixels) ->
     document.body.scrollTop = document.body.scrollTop + pixels
