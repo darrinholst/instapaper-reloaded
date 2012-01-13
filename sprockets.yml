@@ -2,6 +2,6 @@
 source_dir: .
 build_dir: assets
 assets: [javascripts, lib, css]
-bundles: [all.js, all.css]
+bundles: [all.js, all.css, opener.js]
 digest: false
 

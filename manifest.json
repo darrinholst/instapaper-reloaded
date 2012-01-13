@@ -7,12 +7,19 @@
     "48": "img/icon48.png",
     "128": "img/icon128.png"
   },
-  "content_scripts": [{
-    "all_frames": true,
-    "matches": ["http://*.instapaper.com/*"],
-    "css": ["assets/all.css"],
-    "js": ["assets/all.js"]
-  }]
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "matches": ["http://*.instapaper.com/*"],
+      "css": ["assets/all.css"],
+      "js": ["assets/all.js"]
+    },
+
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["assets/opener.js"]
+    }
+  ]
 }
 
 
