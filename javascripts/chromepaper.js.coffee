@@ -93,7 +93,7 @@ do ->
     $(document).bind('keydown', 'k', upUpUp)
     $(document).bind('keydown', 't', openTextArticle)
     $(document).bind('keydown', 'o', openOriginalArticle)
-    $(document).bind('keydown', 'a', archiveSelectedArticle)
+    $(document).bind('keydown', 'a y', archiveSelectedArticle)
     $(document).bind('keydown', 'shift+a', -> window.location = window.location.origin + "/archive")
     $(document).bind('keydown', 'shift+u', -> window.location = window.location.origin + "/u")
     $("#right_column").bind 'mouseenter', -> $(this).animate('right': 30, 200)
