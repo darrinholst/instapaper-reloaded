@@ -32,3 +32,35 @@ body {
   }
 }
 
+#chromepaper-help {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  font-family: "Monospace";
+  font-size: 1.1em;
+
+  .inner {
+    color: white;
+    background: rgba(0, 0, 0, .8);
+    padding: 20px;
+    display: table;
+    margin: 40px auto;
+    border-radius: 5px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      span {
+        display: inline-block;
+        text-align: right;
+        color: yellow;
+        width: 35px;
+        padding-right: 7px;
+      }
+    }
+  }
+}

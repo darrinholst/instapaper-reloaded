@@ -66,7 +66,7 @@ do ->
   openOriginalArticle = () ->
     clickLink(findOriginalArticleLink())
 
-  findOriginalArticleLink = () ->
+  findOriginalArticleLink = ->
     if selectedArticle.length
       selectedArticle.find(originalArticleLink)[0]
     else
@@ -83,12 +83,50 @@ do ->
       selectedArticle = if nextArticle.length then nextArticle else previousArticle
       showSelectedArticle()
 
-  articleClicked = () ->
+  articleClicked = ->
     if !($(this).hasClass("archived"))
       selectedArticle = $(this)
       showSelectedArticle()
 
+  dontHelpMe = ->
+    $("#chromepaper-help").hide()
+
+  helpMe = ->
+    helpDiv = $("#chromepaper-help")
+    console.log(helpDiv)
+
+    if(helpDiv.length == 0)
+      helpDiv = $("""
+        <div id="chromepaper-help">
+          <div class="inner">
+            <ul>
+              <li><span>?:</span>Show this help</li>
+              <li><span>esc:</span>Dismiss this help</li>
+            </ul>
+            <hr>
+            <ul>
+              <li><span>a, y:</span>Archive selected article</li>
+              <li><span>j:</span>Select next article</li>
+              <li><span>k:</span>Select previous article</li>
+              <li><span>o:</span>Open original link for selected article</li>
+              <li><span>t:</span>Open text view for selected article</li>
+            </ul>
+            <hr>
+            <ul>
+              <li><span>A:</span>Show archived articles</li>
+              <li><span>U:</span>Show unread articles</li>
+            </ul>
+          </div>
+        </div>
+      """).appendTo($("body"))
+
+    helpDiv.show()
+
+
+
   bindEvents = () ->
+    $(document).bind('keydown', 'shift+/', helpMe)
+    $(document).bind('keydown', 'esc', dontHelpMe)
     $(document).bind('keydown', 'j', downDownDown)
     $(document).bind('keydown', 'k', upUpUp)
     $(document).bind('keydown', 't', openTextArticle)
