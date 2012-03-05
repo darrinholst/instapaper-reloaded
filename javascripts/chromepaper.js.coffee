@@ -3,6 +3,7 @@ do ->
   articleContainer = ".tableViewCell"
   textViewLink = ".textButton"
   archiveLink = ".archiveButton"
+  deleteLink = ".deleteLink"
   originalArticleLink = ".tableViewCellTitleLink"
   selectedArticle = $(articleContainer).filter(":first")
   nextArticle = null
@@ -75,16 +76,19 @@ do ->
   archiveSelectedArticle = () ->
     clickLink(selectedArticle.find(archiveLink)[0])
 
-  articleArchived = () ->
-    archivedArticle = $(this).closest(articleContainer)
-    archivedArticle.addClass("archived")
+  deleteSelectedArticle = () ->
+    clickLink(selectedArticle.find(deleteLink)[0])
 
-    if archivedArticle.hasClass("selected")
+  articleRemoved = ->
+    removedArticle = $(this).closest(articleContainer)
+    removedArticle.addClass("removed")
+
+    if removedArticle.hasClass("selected")
       selectedArticle = if nextArticle.length then nextArticle else previousArticle
       showSelectedArticle()
 
   articleClicked = ->
-    if !($(this).hasClass("archived"))
+    if !($(this).hasClass("removed"))
       selectedArticle = $(this)
       showSelectedArticle()
 
@@ -106,10 +110,11 @@ do ->
             <hr>
             <ul>
               <li><span>a, y:</span>Archive selected article</li>
+              <li><span>#:</span>Delete selected article</li>
               <li><span>j:</span>Select next article</li>
               <li><span>k:</span>Select previous article</li>
               <li><span>o:</span>Open original link for selected article</li>
-              <li><span>t:</span>Open text view for selected article</li>
+              <li><span>t, enter:</span>Open text view for selected article</li>
             </ul>
             <hr>
             <ul>
@@ -129,15 +134,17 @@ do ->
     $(document).bind('keydown', 'esc', dontHelpMe)
     $(document).bind('keydown', 'j', downDownDown)
     $(document).bind('keydown', 'k', upUpUp)
-    $(document).bind('keydown', 't', openTextArticle)
+    $(document).bind('keydown', 't return', openTextArticle)
     $(document).bind('keydown', 'o', openOriginalArticle)
     $(document).bind('keydown', 'a y', archiveSelectedArticle)
+    $(document).bind('keydown', '#', deleteSelectedArticle)
     $(document).bind('keydown', 'shift+a', -> window.location = window.location.origin + "/archive")
     $(document).bind('keydown', 'shift+u', -> window.location = window.location.origin + "/u")
-    $("#right_column").bind 'mouseenter', -> $(this).animate('right': 30, 200)
-    $("#right_column").bind 'mouseleave', (event) -> $(this).animate('right': -240, 200) if event.offsetX < 0
+    $("#right_column").bind 'mouseenter', -> $(this).animate('right': 0, 200).addClass("open")
+    $("#right_column").bind 'mouseleave', (event) -> $(this).animate('right': -240, 200).removeClass("open") if event.offsetX < 0
     $(articleContainer).click(articleClicked)
-    $(archiveLink).click(articleArchived)
+    $(archiveLink).click(articleRemoved)
+    $(deleteLink).click(articleRemoved)
 
   makeLinksOpenInNewTab()
   showSelectedArticle()

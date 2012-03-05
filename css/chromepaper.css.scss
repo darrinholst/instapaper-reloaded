@@ -1,9 +1,18 @@
 body {
-  background-color: white !important;
+  background-color: #fcfcfc !important;
 }
 
 #bookmarkListDeckAd, #bookmarkListDeckAdPlaceholder {
   display: none;
+}
+
+a {
+  color: #333 !important;
+
+  &.actionButton {
+    color: #777 !important;
+    border-color: #777 !important;
+  }
 }
 
 #content {
@@ -12,10 +21,10 @@ body {
     width: 100%;
 
     .tableViewCell {
-      background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fcfcfc));
+      background: -webkit-gradient(linear, left top, left bottom, from(lighten(#fafafa, 4)), to(#fafafa));
 
       &.selected {
-        background: -webkit-gradient(linear, left top, left bottom, from(#FFFBCC), to(#FFFBCC));
+        background: -webkit-gradient(linear, left top, left bottom, from(lighten(#FFFBCC, 3)), to(lighten(#FFFBCC, 0)));
       }
     }
   }
@@ -28,7 +37,14 @@ body {
     right: -240px;
     width: 200px;
     height: 100%;
-    padding: 0 30px;
+    padding-left: 50px;
+    padding-right: 30px;
+    overflow-x: hidden;
+
+    &.open {
+      background: #fafafa;
+      border-left: 1px solid #ccc;
+    }
   }
 }
 
@@ -58,7 +74,7 @@ body {
         display: inline-block;
         text-align: right;
         color: yellow;
-        width: 35px;
+        width: 65px;
         padding-right: 7px;
       }
     }
