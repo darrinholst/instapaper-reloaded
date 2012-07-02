@@ -2,7 +2,9 @@ body {
   background-color: #fcfcfc !important;
 }
 
-#bookmarkListDeckAd, #bookmarkListDeckAdPlaceholder {
+#bookmarkListDeckAd { 
+  top: 25px !important;
+  left: 50px !important;
   display: none;
 }
 
@@ -12,6 +14,10 @@ a {
   &.actionButton {
     color: #777 !important;
     border-color: #777 !important;
+  }
+
+  &.bookmarklet {
+    color: white !important;
   }
 }
 

@@ -127,7 +127,13 @@ do ->
 
     helpDiv.show()
 
-
+  repositionAd = ->
+    placeholder = $("#bookmarkListDeckAdPlaceholder")
+    ad = $("#bookmarkListDeckAd")
+    ad.find("script").remove()
+    ad.appendTo(placeholder)
+    ad.show()
+    placeholder.show()
 
   bindEvents = () ->
     $(document).bind('keydown', 'shift+/', helpMe)
@@ -146,6 +152,7 @@ do ->
     $(archiveLink).click(articleRemoved)
     $(deleteLink).click(articleRemoved)
 
+  repositionAd()
   makeLinksOpenInNewTab()
   showSelectedArticle()
   bindEvents()
