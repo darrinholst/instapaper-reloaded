@@ -1,6 +1,6 @@
-# chromepaper
+# Instapaper Reloaded
 
 ## Copyright
 
-Copyright (c) 2011 Darrin Holst. See LICENSE for details.
+Copyright (c) 2012 Darrin Holst. See LICENSE for details.
 

@@ -1,0 +1,85 @@
+body {
+  background-color: #fcfcfc !important;
+}
+
+#bookmarkListDeckAd {
+  top: 25px !important;
+  left: 50px !important;
+  display: none;
+}
+
+a {
+  color: #333 !important;
+}
+
+a.actionButton {
+  color: #777 !important;
+  border-color: #777 !important;
+}
+
+a.bookmarklet {
+  color: white !important;
+}
+
+#content #left_column, #content #bookmark_list {
+  float: none;
+  width: 100%;
+}
+
+#content #left_column .tableViewCell, #content #bookmark_list .tableViewCell {
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(#fafafa));
+}
+
+#content #left_column .tableViewCell.selected, #content #bookmark_list .tableViewCell.selected {
+  background: -webkit-gradient(linear, left top, left bottom, from(#fffcdb), to(#fffbcc));
+}
+
+#content #right_column {
+  float: none;
+  position: fixed;
+  overflow: scroll;
+  top: 0;
+  right: -240px;
+  width: 200px;
+  height: 100%;
+  padding-left: 50px;
+  padding-right: 30px;
+  overflow-x: hidden;
+}
+
+#content #right_column.open {
+  background: #fafafa;
+  border-left: 1px solid #ccc;
+}
+
+#chromepaper-help {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  font-family: "Monospace";
+  font-size: 1.1em;
+}
+
+#chromepaper-help .inner {
+  color: white;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  display: table;
+  margin: 40px auto;
+  border-radius: 5px;
+}
+
+#chromepaper-help ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#chromepaper-help ul li span {
+  display: inline-block;
+  text-align: right;
+  color: yellow;
+  width: 65px;
+  padding-right: 7px;
+}
+

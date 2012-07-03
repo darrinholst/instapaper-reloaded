@@ -76,99 +76,99 @@ document.addEventListener("keydown", function (event) {
 
     addCss = function() {
       if(!cssAdded) {
-        var styleElement = document.createElement('style');
-        styleElement.setAttribute('type', 'text/css');
-        styleElement.appendChild(document.createTextNode(css));
-        document.getElementsByTagName("head")[0].appendChild(styleElement);
-        cssAdded = true;
+        var styleElement = document.createElement('style')
+        styleElement.setAttribute('type', 'text/css')
+        styleElement.appendChild(document.createTextNode(css))
+        document.getElementsByTagName("head")[0].appendChild(styleElement)
+        cssAdded = true
       }
     },
 
     showMessage = function(message, keep) {
-      addCss();
-      var messageContainer = document.getElementById("__instapaper_reloaded_message__");
+      addCss()
+      var messageContainer = document.getElementById("__instapaper_reloaded_message__")
 
       if(!messageContainer) {
-        messageContainer = document.createElement("div");
-        messageContainer.id = "__instapaper_reloaded_message__";
-        document.getElementsByTagName("body")[0].appendChild(messageContainer);
+        messageContainer = document.createElement("div")
+        messageContainer.id = "__instapaper_reloaded_message__"
+        document.getElementsByTagName("body")[0].appendChild(messageContainer)
       }
 
-      messageContainer.innerHTML = message;
-      messageContainer.style.display = "block";
+      messageContainer.innerHTML = message
+      messageContainer.style.display = "block"
 
       if(messageHider) {
-        clearTimeout(messageHider);
+        clearTimeout(messageHider)
       }
 
       if(!keep) {
         messageHider = setTimeout(function() {
-          messageContainer.style.display = "none";
-        }, 3000);
+          messageContainer.style.display = "none"
+        }, 3000)
       }
     },
 
     promptForCredentials = function() {
-      addCss();
+      addCss()
 
-      var wrapper = document.createElement("div");
-      wrapper.innerHTML = credentials_html;
-      wrapper.id = "__instapaper_reloaded_credentials__";
-      document.getElementsByTagName("body")[0].appendChild(wrapper);
+      var wrapper = document.createElement("div")
+      wrapper.innerHTML = credentials_html
+      wrapper.id = "__instapaper_reloaded_credentials__"
+      document.getElementsByTagName("body")[0].appendChild(wrapper)
 
-      document.getElementById("__instapaper_reloaded_form__").addEventListener("submit", saveCredentials);
+      document.getElementById("__instapaper_reloaded_form__").addEventListener("submit", saveCredentials)
     },
 
     saveCredentials = function(event) {
-      event.preventDefault();
+      event.preventDefault()
 
-      email = document.getElementById("__instapaper_reloaded_email__").value;
-      password = document.getElementById("__instapaper_reloaded_password__").value;
+      email = document.getElementById("__instapaper_reloaded_email__").value
+      password = document.getElementById("__instapaper_reloaded_password__").value
 
       chrome.extension.sendMessage({command: "saveCredentials", email: email, password: password}, function(response) {
-        var wrapper = document.getElementById("__instapaper_reloaded_credentials__");
-        wrapper.parentNode.removeChild(wrapper);
-        savePage();
-      });
+        var wrapper = document.getElementById("__instapaper_reloaded_credentials__")
+        wrapper.parentNode.removeChild(wrapper)
+        savePage()
+      })
     },
 
     savePage = function() {
-      showMessage("Saving...", true);
+      showMessage("Saving...", true)
 
       chrome.extension.sendMessage({command: "getCredentials"}, function(response) {
         if(!response.email || !response.password) {
-          promptForCredentials();
+          promptForCredentials()
         }
         else {
-          var xhr = new XMLHttpRequest();
-          xhr.open("POST", "https://www.instapaper.com/api/add", true);
+          var xhr = new XMLHttpRequest()
+          xhr.open("POST", "https://www.instapaper.com/api/add", true)
           xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
           xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {
               if(xhr.status == 403) {
-                showMessage("Invalid Credentials");
-                promptForCredentials();
+                showMessage("Invalid Credentials")
+                promptForCredentials()
               }
               else if(xhr.status >= 200 && xhr.status <= 299) {
-                showMessage("Saved!");
+                showMessage("Saved!")
               }
               else {
-                showMessage("Unable to save page (" + xhr.status + ")!");
+                showMessage("Unable to save page (" + xhr.status + ")!")
               }
             }
           }
-          xhr.send("username=" + response.email + "&password=" + response.password + "&url=" + encodeURIComponent(window.location.href));
+          xhr.send("username=" + response.email + "&password=" + response.password + "&url=" + encodeURIComponent(window.location.href))
         }
-      });
+      })
     }
 
   if(event.keyCode === 73 && event.ctrlKey) {
     if(event.shiftKey) {
-      window.location = "http://instapaper.com/text?u=" + encodeURIComponent(window.location.href);
+      window.location = "http://instapaper.com/text?u=" + encodeURIComponent(window.location.href)
     }
     else {
-      savePage();
+      savePage()
     }
   }
-});
+})
 
