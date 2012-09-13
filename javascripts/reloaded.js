@@ -181,7 +181,7 @@
 
       initialize = function() {
         chrome.extension.sendMessage({command: "getOption", name: "reverse_sort"}, function(reverseSort) {
-          if(reverseSort === "true") {
+          if(window.location.pathname === "/u" && reverseSort === "true") {
             var articles = $("#bookmark_list .tableViewCell").removeClass("tableViewCellFirst tableViewCellLast").get().reverse();
             $("#bookmark_list").html(articles);
           }
