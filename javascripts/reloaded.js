@@ -140,7 +140,7 @@
         ad.appendTo(placeholder);
         ad.show();
         placeholder.show();
-      };
+      },
 
       bindEvents = function() {
         $(document).bind('keydown', 'shift+/', helpMe);
@@ -177,10 +177,22 @@
         $(articleContainer).click(articleClicked);
         $(archiveLink).click(articleRemoved);
         $(deleteLink).click(articleRemoved);
+      },
+
+      initialize = function() {
+        chrome.extension.sendMessage({command: "getOption", name: "reverse_sort"}, function(reverseSort) {
+          if(reverseSort === "true") {
+            var articles = $("#bookmark_list .tableViewCell").removeClass("tableViewCellFirst tableViewCellLast").get().reverse();
+            $("#bookmark_list").html(articles);
+          }
+
+          selectedArticle = $(articleContainer).filter(":first");
+          repositionAd();
+          makeLinksOpenInNewTab();
+          showSelectedArticle();
+          bindEvents();
+        });
       };
 
-  repositionAd();
-  makeLinksOpenInNewTab();
-  showSelectedArticle();
-  bindEvents();
+  initialize();
 })();

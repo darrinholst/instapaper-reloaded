@@ -31,7 +31,8 @@
   ],
   "background": {
     "scripts": ["javascripts/background.js"]
-  }
+  },
+  "options_page": "html/options.html"
 }
 
 
