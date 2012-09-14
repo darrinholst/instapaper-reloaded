@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Instapaper Reloaded",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Some tweaks to instapaper.com",
   "permissions": [
     "https://www.instapaper.com/"
