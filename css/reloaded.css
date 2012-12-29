@@ -2,6 +2,16 @@ body {
   background-color: #fcfcfc !important;
 }
 
+#bookmark_list > div:first-child {
+  border-top-left-radius: 3px !important;
+  border-top-right-radius: 3px !important;
+}
+
+#bookmark_list > div:last-child {
+  border-bottom-left-radius: 3px !important;
+  border-bottom-right-radius: 3px !important;
+}
+
 #bookmarkListDeckAd {
   top: 25px !important;
   left: 50px !important;
@@ -10,11 +20,17 @@ body {
 
 a {
   color: #333 !important;
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: underline !important;
 }
 
 a.actionButton {
   color: #777 !important;
   border-color: #777 !important;
+  border-radius: 3px !important;
 }
 
 a.bookmarklet {
@@ -45,11 +61,8 @@ a.bookmarklet {
   padding-left: 50px;
   padding-right: 30px;
   overflow-x: hidden;
-}
-
-#content #right_column.open {
-  background: #fafafa;
   border-left: 1px solid #ccc;
+  background: #fafafa;
 }
 
 #chromepaper-help {
