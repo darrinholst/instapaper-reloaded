@@ -1,5 +1,7 @@
 (function() {
   var scroller = new Scroller(),
+      archiveMenu = "a.archivebutton",
+      archiveMenuButton = 'div.button:contains("Move to Archive")'
       articleContainer = ".tableViewCell",
       textViewLink = ".textButton",
       archiveLink = ".archiveButton",
@@ -94,7 +96,12 @@
       },
 
       archiveSelectedArticle = function() {
-        clickLink(selectedArticle.find(archiveLink)[0]);
+        if($(archiveMenu).length) {
+          clickLink($(archiveMenu)[0])
+          clickLink($(archiveMenuButton)[0])
+        } else {
+          clickLink(selectedArticle.find(archiveLink)[0]);
+        }
       },
 
       deleteSelectedArticle = function() {
