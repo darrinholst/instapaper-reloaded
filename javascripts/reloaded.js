@@ -187,18 +187,18 @@
       },
 
       initialize = function() {
-        chrome.extension.sendMessage({command: "getOption", name: "reverse_sort"}, function(reverseSort) {
-          if(window.location.pathname === "/u" && reverseSort === "true") {
-            var articles = $("#bookmark_list .tableViewCell").removeClass("tableViewCellFirst tableViewCellLast").get().reverse();
-            $("#bookmark_list").html(articles);
-          }
+        //chrome.extension.sendMessage({command: "getOption", name: "reverse_sort"}, function(reverseSort) {
+          //if(window.location.pathname === "/u" && reverseSort === "true") {
+            //var articles = $("#bookmark_list .tableViewCell").removeClass("tableViewCellFirst tableViewCellLast").get().reverse();
+            //$("#bookmark_list").html(articles);
+          //}
 
-          selectedArticle = $(articleContainer).filter(":first");
-          repositionAd();
-          makeLinksOpenInNewTab();
-          showSelectedArticle();
-          bindEvents();
-        });
+          //selectedArticle = $(articleContainer).filter(":first");
+          //repositionAd();
+          //makeLinksOpenInNewTab();
+          //showSelectedArticle();
+          //bindEvents();
+        //});
       };
 
   initialize();
