@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Instapaper Reloaded",
-  "version": "2.0",
+  "version": "3.0",
   "description": "Some tweaks to instapaper.com",
   "permissions": [
     "https://www.instapaper.com/"
@@ -14,7 +14,7 @@
   "content_scripts": [
     {
       "all_frames": true,
-      "matches": ["http://*.instapaper.com/*"],
+      "matches": ["*://*.instapaper.com/*"],
       "css": ["css/reloaded.css"],
       "js": [
         "javascripts/jquery.js",
