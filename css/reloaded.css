@@ -1,14 +1,19 @@
+.articles article.fumullins {
+  background: -webkit-gradient(linear, left top, left bottom, from(#fffcdb), to(#fffbcc));
+}
+
 #chromepaper-help {
   position: absolute;
   top: 0;
   width: 100%;
   font-family: "Monospace";
   font-size: 1.1em;
+  z-index: 9999;
 }
 
 #chromepaper-help .inner {
   color: white;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.9);
   padding: 20px;
   display: table;
   margin: 40px auto;

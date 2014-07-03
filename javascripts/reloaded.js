@@ -1,12 +1,13 @@
 (function() {
   var scroller = new Scroller(),
+      selectedClass = "fumullins",
       archiveMenu = "a.archivebutton",
       archiveMenuButton = 'div.button:contains("Move to Archive")'
-      articleContainer = ".tableViewCell",
-      textViewLink = ".textButton",
-      archiveLink = ".archiveButton",
-      deleteLink = ".deleteLink",
-      originalArticleLink = ".tableViewCellTitleLink",
+      articleContainer = "article",
+      textViewLink = ".article_title",
+      archiveLink = '.js_archive_single',
+      deleteLink = '.js_delete_single'
+      originalArticleLink = ".js_domain_linkout",
       selectedArticle = $(articleContainer).filter(":first"),
       nextArticle = null,
       previousArticle = null,
@@ -21,8 +22,8 @@
       },
 
       showSelectedArticle = function() {
-        $(articleContainer).removeClass("selected");
-        selectedArticle.addClass("selected");
+        $(articleContainer).removeClass(selectedClass);
+        selectedArticle.addClass(selectedClass);
         nextArticle = selectedArticle.next();
         previousArticle = selectedArticle.prev();
       },
@@ -112,7 +113,7 @@
         var removedArticle = $(this).closest(articleContainer);
         removedArticle.addClass("removed");
 
-        if (removedArticle.hasClass("selected")) {
+        if (removedArticle.hasClass(selectedClass)) {
           selectedArticle = nextArticle.length ? nextArticle : previousArticle;
           showSelectedArticle();
         }
@@ -139,16 +140,6 @@
         helpDiv.show();
       },
 
-      repositionAd = function() {
-        var placeholder = $("#bookmarkListDeckAdPlaceholder"),
-            ad = $("#bookmarkListDeckAd");
-
-        ad.find("script").remove();
-        ad.appendTo(placeholder);
-        ad.show();
-        placeholder.show();
-      },
-
       bindEvents = function() {
         $(document).bind('keydown', 'shift+/', helpMe);
         $(document).bind('keydown', 'esc', dontHelpMe);
@@ -167,20 +158,6 @@
           return window.location = window.location.origin + "/u";
         });
 
-        $("#right_column").bind('mouseenter', function() {
-          return $(this).animate({
-            'right': 0
-          }, 200).addClass("open");
-        });
-
-        $("#right_column").bind('mouseleave', function(event) {
-          if (event.offsetX < 0) {
-            return $(this).animate({
-              'right': -240
-            }, 200).removeClass("open");
-          }
-        });
-
         $(articleContainer).click(articleClicked);
         $(archiveLink).click(articleRemoved);
         $(deleteLink).click(articleRemoved);
@@ -193,11 +170,9 @@
             $('.articles').html(articles);
           }
 
-          //selectedArticle = $(articleContainer).filter(":first");
-          //repositionAd();
-          //makeLinksOpenInNewTab();
-          //showSelectedArticle();
-          //bindEvents();
+          selectedArticle = $(articleContainer).filter(":first");
+          showSelectedArticle();
+          bindEvents();
         });
       };
 
